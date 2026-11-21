@@ -5,7 +5,7 @@
 <h1 align="center">Linky</h1>
 
 <p align="center">
-  <b>Copy a link to any file or folder on your Mac. Paste it into Craft. Click it – the file opens.</b><br>
+  <b>Copy a link to any file or folder on your Mac. Paste it into your notes, tasks or docs. Click it – the file opens.</b><br>
   No upload, no download, no copies.
 </p>
 
@@ -15,13 +15,15 @@
 
 ---
 
-When you attach a file to a Craft document, you can't just open it – you have to download it first, and then you have two versions. Linky leaves the file where it is and gives you a link to it instead.
+Your notes, tasks and docs are where the context lives – but your files live in Finder. Attaching them means uploading copies that you have to download again to open, and that quietly go out of date. Linky leaves the file where it is and gives you a link to it instead.
+
+Use it for the contract next to your meeting notes, the design file in a task, the folder of a project in its brief, the invoice in an email draft.
 
 ## How it works
 
 1. Select a file or folder in Finder.
 2. Press **⌃⌥⌘L** – or right-click › Services › **Copy Linky Link**.
-3. Paste into Craft. You get the file name as a clickable link.
+3. Paste it wherever links are clickable – Craft, Apple Notes, Obsidian, Bear, Things, Mail … You get the file name as a link.
 4. Click it to open the file. **⌥-click** shows it in Finder.
 
 Links keep working when you **rename or move** the file. If a file is deleted, Linky lists the broken link so you can **relink** it to a new file – every place you pasted the link then opens the new one.
@@ -42,8 +44,8 @@ Linky lives in the menu bar: your recent links are one click away, ready to copy
 
 ## Good to know
 
-- **Works in any app that accepts links** – Craft, Notes, Mail, Obsidian, Things … Settings let you choose between a linked file name, Markdown or the plain URL.
-- **Links point to files on *your* Mac.** A link looks like `linky://open?id=…`. Someone you share a Craft doc with can't open it, unless they have Linky and the same file at the same path.
+- **Three formats:** a linked file name (rich text), Markdown for Markdown editors, or the plain URL – pick one in Settings.
+- **Links point to files on *your* Mac.** A link looks like `linky://open?id=…`. Someone you share a note with can't open it, unless they have Linky and the same file at the same path.
 - **Everything stays local.** Links are stored in `~/Library/Application Support/Linky/links.json`. No account, no network, no tracking.
 - The shortcut can be changed in Settings (menu bar › Settings…).
 
