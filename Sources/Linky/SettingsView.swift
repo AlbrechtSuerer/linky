@@ -59,6 +59,8 @@ struct SettingsView: View {
 
                     LinksSection(store: LinkStore.shared, expanded: $nav.linksExpanded)
                         .id("links")
+
+                    SupportLine()
                 }
                 .padding(.horizontal, 32)
                 .padding(.top, 48)
@@ -75,6 +77,28 @@ struct SettingsView: View {
         }
         .frame(width: Self.size.width, height: Self.size.height)
         .background(Color(nsColor: .textBackgroundColor))
+    }
+}
+
+// MARK: - Support
+
+private struct SupportLine: View {
+    @State private var hovering = false
+
+    var body: some View {
+        HStack(spacing: 4) {
+            Text("Enjoying Linky?")
+                .foregroundStyle(.tertiary)
+            Link(destination: Linky.supportURL) {
+                Text("Buy me a coffee ☕")
+                    .underline(hovering)
+            }
+            .foregroundStyle(.secondary)
+            .onHover { hovering = $0 }
+        }
+        .font(.system(size: 12))
+        .frame(maxWidth: .infinity)
+        .padding(.top, 4)
     }
 }
 

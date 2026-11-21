@@ -10,7 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="../../releases/latest"><b>Download Linky</b></a> · macOS 26 or later · free
+  <a href="../../releases/latest"><b>Download Linky</b></a> · macOS 26 or later · free<br>
+  <sub>Enjoying it? <a href="https://buymeacoffee.com/trugschluss">Buy me a coffee ☕</a></sub>
 </p>
 
 ---
@@ -58,6 +59,10 @@ Requires Xcode / Swift 6.2 or later.
 ./scripts/build.sh --install  # also installs to /Applications and starts it
 ./scripts/build.sh --zip      # also creates build/Linky.zip for a release
 ```
+
+## Support
+
+Linky is free and stays free. If it saves you a few clicks every day, you can [buy me a coffee ☕](https://buymeacoffee.com/trugschluss) – thank you!
 
 ## License
 

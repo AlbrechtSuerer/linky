@@ -4,6 +4,7 @@ import AppKit
 @MainActor
 enum Linky {
     static let scheme = "linky"
+    static let supportURL = URL(string: "https://buymeacoffee.com/trugschluss")!
 
     // MARK: Copy
 
