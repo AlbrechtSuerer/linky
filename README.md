@@ -51,6 +51,19 @@ Linky lives in the menu bar: your recent links are one click away, ready to copy
 - The shortcut can be changed in Settings (menu bar › Settings…).
 - **Transparency**  I'm just a simple guy, so Linky was built with AI (Claude Code). The idea, the design and the testing are mine. The full source is on GitHub, so you can check exactly what it does.
 
+## Raycast
+
+The companion extension in [`raycast-extension`](raycast-extension) adds two commands to Raycast. It needs Linky 1.3 or later.
+
+- **Copy Linky Link**: link the files selected in Finder.
+- **Search Linky Links**: search every link you made, copy it again, open the file or show it in Finder.
+
+It isn't in the Raycast Store yet. To try it, run this once and Raycast picks it up:
+
+```bash
+cd raycast-extension && npm install && npm run dev
+```
+
 ## Build from source
 
 Requires Xcode / Swift 6.2 or later.

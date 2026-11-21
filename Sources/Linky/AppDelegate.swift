@@ -25,10 +25,32 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     func application(_ application: NSApplication, open urls: [URL]) {
         for url in urls {
+            let query = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems ?? []
             switch url.host {
-            case "settings": showSettings(page: .general)
-            case "links": showSettings(page: .links)
-            default: Linky.open(url)
+            case "settings":
+                showSettings(page: .general)
+            case "links":
+                showSettings(page: .links)
+            case "copy":
+                // linky://copy?path=/a&path=/b – or without paths: the current Finder selection.
+                let paths = query.filter { $0.name == "path" }.compactMap(\.value)
+                    .filter { FileManager.default.fileExists(atPath: $0) }
+                if paths.isEmpty {
+                    Linky.copyLinksForFinderSelection()
+                } else {
+                    Linky.copyLinks(for: paths.map { URL(fileURLWithPath: $0) })
+                }
+            case "refresh":
+                // Re-checks all links and saves moved paths, so readers of links.json see current locations.
+                LinkStore.shared.refreshStatus()
+            case "copy-id":
+                // linky://copy-id?id=… – copies an existing link again (used by the Raycast extension).
+                if let id = query.first(where: { $0.name == "id" })?.value,
+                   let entry = LinkStore.shared.entries[id] {
+                    Linky.copyAgain(entry)
+                }
+            default:
+                Linky.open(url)
             }
         }
     }
