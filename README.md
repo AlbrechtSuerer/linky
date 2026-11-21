@@ -11,7 +11,7 @@
 
 <p align="center">
   <a href="../../releases/latest"><b>Download Linky</b></a> · macOS 26 or later · free<br>
-  <sub>Enjoying it? <a href="https://buymeacoffee.com/trugschluss">Buy me a coffee ☕</a></sub>
+  
 </p>
 
 ---
