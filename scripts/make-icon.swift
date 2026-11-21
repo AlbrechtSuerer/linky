@@ -1,4 +1,4 @@
-// Renders Linky's 1024×1024 app icon: a graphite squircle with a white link glyph.
+// Renders Linky's 1024×1024 app icon: a graphite squircle with the white link glyph from docs/linky-glyph.svg.
 // Usage: swift scripts/make-icon.swift <out.png>
 import AppKit
 
@@ -40,14 +40,14 @@ rim.lineWidth = 4
 rim.stroke()
 NSGraphicsContext.restoreGraphicsState()
 
-// Link glyph
-let config = NSImage.SymbolConfiguration(pointSize: 400, weight: .semibold)
-    .applying(.init(paletteColors: [.white]))
-if let glyph = NSImage(systemSymbolName: "link", accessibilityDescription: nil)?.withSymbolConfiguration(config) {
-    let g = glyph.size
-    let rect = NSRect(x: (size - g.width) / 2, y: (size - g.height) / 2, width: g.width, height: g.height)
-    glyph.draw(in: rect)
-}
+// Link glyph – docs/linky-glyph.svg (Feather "link", MIT), drawn in white at 22× (528 pt)
+let glyphPath = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
+    .appendingPathComponent("../docs/linky-glyph.svg").standardized
+let svg = try! String(contentsOf: glyphPath, encoding: .utf8)
+    .replacingOccurrences(of: "currentColor", with: "#ffffff")
+guard let glyph = NSImage(data: Data(svg.utf8)) else { fatalError("Could not load \(glyphPath.path)") }
+let g: CGFloat = 24 * 22
+glyph.draw(in: NSRect(x: (size - g) / 2, y: (size - g) / 2, width: g, height: g))
 
 NSGraphicsContext.restoreGraphicsState()
 try! rep.representation(using: .png, properties: [:])!.write(to: URL(fileURLWithPath: out))

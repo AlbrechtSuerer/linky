@@ -66,4 +66,4 @@ Linky is free and stays free. If it saves you a few clicks every day, you can [b
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE). The link icon is from [Feather](https://feathericons.com) (MIT) – see [third-party notices](THIRD_PARTY_NOTICES.md).
