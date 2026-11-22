@@ -32,8 +32,10 @@ Use it for the contract next to your meeting notes, the design file in a task, t
 4. Click it to open the file. **⌥-click** shows it in Finder.
 
 <p align="center">
-  <img src="docs/finder-link-copied.png" width="62%" alt="A file selected in Finder, with Linky's 'Link copied' confirmation">
-  <img src="docs/craft-note.png" width="34%" alt="A note in Craft with three Linky links to files">
+  <img src="docs/finder-link-copied.png" width="720" alt="A file selected in Finder, with Linky's 'Link copied' confirmation">
+</p>
+<p align="center">
+  <img src="docs/craft-note.png" width="400" alt="A note in Craft with three Linky links to files">
 </p>
 
 Links keep working when you **rename or move** the file. If a file is deleted, Linky lists the broken link so you can **relink** it to a new file – every place you pasted the link then opens the new one.
