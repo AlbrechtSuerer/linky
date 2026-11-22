@@ -60,9 +60,9 @@ Linky lives in the menu bar: your recent links are one click away, ready to copy
 ## Good to know
 
 - **Three formats:** a linked file name (rich text), Markdown for Markdown editors, or the plain URL – pick one in Settings.
-- **Links point to files on *your* Mac.** A link looks like `linky://open?id=…`. Someone you share a note with can't open it, unless they have Linky and the same file at the same path.
-- **Everything stays local.** Links are stored in `~/Library/Application Support/Linky/links.json`. No account, no network, no tracking.
-- The shortcut can be changed in Settings (menu bar › Settings…).
+- **Links point to files on *your* Mac.** A link looks like `linky://open?id=…&p=~/Documents/…`. It contains no user name. Someone you share a note with can't open it, unless they have Linky and the same file in the same place.
+- **Everything stays local.** Links are stored in `~/Library/Application Support/Linky/links.json`. No account, no tracking, no background network. Linky only goes online when you click **Check for Updates** (it asks GitHub for the latest version).
+- The shortcut can be changed in Settings (menu bar › Settings…). New versions: menu bar › **Check for Updates…**
 - **Transparency**  I'm just a simple guy, so Linky was built with AI (Claude Code). The idea, the design and the testing are mine. The full source is on GitHub, so you can check exactly what it does.
 
 ## Raycast

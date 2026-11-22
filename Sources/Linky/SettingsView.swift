@@ -37,7 +37,8 @@ struct SettingsView: View {
                         }
                     }
 
-                    SettingsSection("Link") {
+                    SettingsSection("Link",
+                                    footer: "Tip: Hold ⌥ while clicking a link to show the file in Finder instead of opening it.") {
                         SettingsRow(title: "Format", subtitle: prefs.format.subtitle) {
                             Picker("", selection: $prefs.format) {
                                 ForEach(LinkFormat.allCases) { Text($0.title).tag($0) }
@@ -48,12 +49,19 @@ struct SettingsView: View {
                         }
                     }
 
-                    SettingsSection("General",
-                                    footer: "Tip: Hold ⌥ while clicking a link to show the file in Finder instead of opening it.") {
+                    SettingsSection("General") {
                         SettingsRow(title: "Open at login") {
                             Toggle("", isOn: $prefs.launchAtLogin)
                                 .labelsHidden()
                                 .toggleStyle(.switch)
+                        }
+                        Rectangle()
+                            .fill(Color.primary.opacity(0.07))
+                            .frame(height: 1)
+                            .padding(.horizontal, 16)
+                        SettingsRow(title: "Updates",
+                                    subtitle: "Version \(Updates.currentVersion). Linky only contacts GitHub when you check.") {
+                            Button("Check Now") { Updates.check() }
                         }
                     }
 

@@ -29,6 +29,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             switch url.host {
             case "settings":
                 showSettings(page: .general)
+            case "check-updates":
+                Updates.check()
             case "links":
                 showSettings(page: .links)
             case "copy":
@@ -134,6 +136,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         all.target = self
         menu.addItem(all)
 
+        let updates = NSMenuItem(title: "Check for Updates…", action: #selector(checkForUpdates), keyEquivalent: "")
+        updates.target = self
+        menu.addItem(updates)
+
         let settings = NSMenuItem(title: "Settings…", action: #selector(showGeneralSettings), keyEquivalent: ",")
         settings.target = self
         menu.addItem(settings)
@@ -185,6 +191,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
 
     @objc private func showLinks() { showSettings(page: .links) }
     @objc private func showGeneralSettings() { showSettings(page: .general) }
+    @objc private func checkForUpdates() { Updates.check() }
 
     // MARK: Settings window
 
@@ -214,7 +221,28 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             window.center()
             settingsWindow = window
         }
-        NSApp.activate()
-        settingsWindow?.makeKeyAndOrderFront(nil)
+        // Wait until the status menu has closed, then bring the window forward.
+        DispatchQueue.main.async { [weak self] in
+            self?.bringSettingsToFront()
+        }
+    }
+
+    /// Since macOS 14, `NSApp.activate()` is only a request that the frontmost app may turn down,
+    /// which left an already open settings window behind other apps. So: ask the frontmost app to
+    /// hand over activation, and put the window in front regardless.
+    private func bringSettingsToFront() {
+        guard let window = settingsWindow else { return }
+        Self.bringAppToFront()
+        window.makeKeyAndOrderFront(nil)
+        window.orderFrontRegardless()
+    }
+
+    /// Asks the frontmost app to hand over activation (a plain `NSApp.activate()` may be turned down).
+    static func bringAppToFront() {
+        if let front = NSWorkspace.shared.frontmostApplication, front != NSRunningApplication.current {
+            NSRunningApplication.current.activate(from: front, options: [])
+        } else {
+            NSApp.activate()
+        }
     }
 }

@@ -17,15 +17,13 @@ final class LinkStore {
 
         /// When the link was last created or copied – drives "recent".
         var used: Date { lastUsed ?? created }
-        var name: String { path == "/" ? "Macintosh HD" : (path as NSString).lastPathComponent }
-        var folder: String {
-            // /private/tmp and /tmp are the same place; compare without the prefix.
-            let strip = { (s: String) in s.hasPrefix("/private/") ? String(s.dropFirst(8)) : s }
-            let dir = strip((path as NSString).deletingLastPathComponent)
-            let home = strip(NSHomeDirectory())
-            if dir == home || dir.hasPrefix(home + "/") { return "~" + dir.dropFirst(home.count) }
-            return dir
+        var name: String { Self.displayName(forPath: path) }
+
+        /// The name shown for a file: its file name, or the volume name for the disk itself.
+        static func displayName(forPath path: String) -> String {
+            path == "/" ? FileManager.default.displayName(atPath: "/") : (path as NSString).lastPathComponent
         }
+        var folder: String { Linky.homeRelative((path as NSString).deletingLastPathComponent) }
     }
 
     private(set) var entries: [String: Entry] = [:]

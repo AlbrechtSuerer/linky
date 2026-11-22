@@ -35,7 +35,7 @@ enum Linky {
         for url in urls {
             do {
                 let id = try LinkStore.shared.id(for: url)
-                links.append(.init(name: displayName(of: url), url: makeURL(id: id, path: url.path)))
+                links.append(.init(name: LinkStore.Entry.displayName(forPath: url.path), url: makeURL(id: id, path: url.path)))
             } catch {
                 Toast.show("Couldn’t create link", detail: url.lastPathComponent,
                            symbol: "exclamationmark.triangle", style: .warning)
@@ -55,7 +55,9 @@ enum Linky {
         guard url.scheme == scheme,
               let comps = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
         let id = comps.queryItems?.first { $0.name == "id" }?.value
-        let path = comps.queryItems?.first { $0.name == "p" }?.value
+        // The fallback path is stored relative to the home folder ("~/…"), so links carry no user name
+        // and also work on another Mac with a different user name. Older links have an absolute path.
+        let path = comps.queryItems?.first { $0.name == "p" }?.value.map { ($0 as NSString).expandingTildeInPath }
 
         guard let target = LinkStore.shared.resolve(id: id, fallbackPath: path) else {
             NSSound.beep()
@@ -127,11 +129,16 @@ enum Linky {
         // Encode the fallback path tightly so the URL is also safe inside Markdown.
         var allowed = CharacterSet.alphanumerics
         allowed.insert(charactersIn: "-._~/")
-        let p = path.addingPercentEncoding(withAllowedCharacters: allowed) ?? ""
+        let p = homeRelative(path).addingPercentEncoding(withAllowedCharacters: allowed) ?? ""
         return URL(string: "\(scheme)://open?id=\(id)&p=\(p)")!
     }
 
-    private static func displayName(of url: URL) -> String {
-        url.path == "/" ? FileManager.default.displayName(atPath: "/") : url.lastPathComponent
+    /// "/Users/name/Documents/a.pdf" → "~/Documents/a.pdf". Paths outside the home folder stay absolute.
+    /// (/private/tmp and /tmp are the same place, so they are compared without that prefix.)
+    nonisolated static func homeRelative(_ path: String) -> String {
+        let strip = { (s: String) in s.hasPrefix("/private/") ? String(s.dropFirst(8)) : s }
+        let p = strip(path), home = strip(NSHomeDirectory())
+        if p == home { return "~" }
+        return p.hasPrefix(home + "/") ? "~" + p.dropFirst(home.count) : path
     }
 }
