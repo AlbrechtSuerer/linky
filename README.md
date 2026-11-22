@@ -14,6 +14,10 @@
   
 </p>
 
+<p align="center">
+  <img src="docs/demo.gif" width="800" alt="Select a file in Finder, press Control-Option-Command-L, paste the link into a note, click it and the file opens">
+</p>
+
 ---
 
 Your notes, tasks and docs are where the context lives – but your files live in Finder. Attaching them means uploading copies that you have to download again to open, and that quietly go out of date. Linky leaves the file where it is and gives you a link to it instead.
