@@ -31,14 +31,22 @@ Use it for the contract next to your meeting notes, the design file in a task, t
 3. Paste it wherever links are clickable – Craft, Apple Notes, Obsidian, Bear, Things, Mail … You get the file name as a link.
 4. Click it to open the file. **⌥-click** shows it in Finder.
 
+<p align="center">
+  <img src="docs/finder-link-copied.png" width="62%" alt="A file selected in Finder, with Linky's 'Link copied' confirmation">
+  <img src="docs/craft-note.png" width="34%" alt="A note in Craft with three Linky links to files">
+</p>
+
 Links keep working when you **rename or move** the file. If a file is deleted, Linky lists the broken link so you can **relink** it to a new file – every place you pasted the link then opens the new one.
 
-Linky lives in the menu bar: your recent links are one click away, ready to copy again.
+<p align="center">
+  <img src="docs/relink.png" width="640" alt="A missing file in Linky's settings with a Relink button">
+</p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/settings-dark.png">
-  <img src="docs/settings-light.png" width="560" alt="Linky settings">
-</picture>
+Linky lives in the menu bar: your recent links are one click away, ready to copy again. Settings let you change the shortcut, pick the link format and manage all your links.
+
+<p align="center">
+  <img src="docs/settings.png" width="480" alt="Linky settings window">
+</p>
 
 ## Install
 
