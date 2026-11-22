@@ -70,9 +70,18 @@ enum Linky {
             return
         }
 
-        // ⌥ while clicking, or linky://reveal, shows the file in Finder instead.
-        if comps.host == "reveal" || NSEvent.modifierFlags.contains(.option) {
+        // ⌥-click (or linky://reveal) shows the file in Finder. Otherwise the "Click opens" setting decides,
+        // and ⌘- or ⇧-click does the other one (Quick Look instead of opening, or the other way round).
+        // Apps decide which modifier clicks they pass on: Craft passes ⌘ only, Apple Notes passes all.
+        let flags = NSEvent.modifierFlags
+        if comps.host == "reveal" || flags.contains(.option) {
             NSWorkspace.shared.activateFileViewerSelecting([target])
+            return
+        }
+        var preview = comps.host == "quicklook" || Preferences.shared.clickAction == .quickLook
+        if comps.host != "quicklook" && (flags.contains(.command) || flags.contains(.shift)) { preview.toggle() }
+        if preview {
+            QuickLook.shared.show(target)
         } else {
             NSWorkspace.shared.open(target)
         }

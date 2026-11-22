@@ -1,4 +1,5 @@
 import AppKit
+import Quartz
 import SwiftUI
 
 @MainActor
@@ -9,8 +10,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
     private var copyItem: NSMenuItem?
     private var settingsWindow: NSWindow?
 
+    /// The most recently active app other than Linky, e.g. the notes app a link was clicked in.
+    static var lastOtherApp: NSRunningApplication? = NSWorkspace.shared.frontmostApplication
+
     func applicationDidFinishLaunching(_ notification: Notification) {
         Self.shared = self
+        NSWorkspace.shared.notificationCenter.addObserver(
+            forName: NSWorkspace.didActivateApplicationNotification, object: nil, queue: .main
+        ) { note in
+            let app = note.userInfo?[NSWorkspace.applicationUserInfoKey] as? NSRunningApplication
+            MainActor.assumeIsolated {
+                if let app, app != NSRunningApplication.current { AppDelegate.lastOtherApp = app }
+            }
+        }
         setupStatusItem()
 
         NSApp.servicesProvider = self
@@ -29,6 +41,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
             switch url.host {
             case "settings":
                 showSettings(page: .general)
+            case "quicklook":
+                Linky.open(url)
             case "check-updates":
                 Updates.check()
             case "links":
@@ -244,5 +258,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         } else {
             NSApp.activate()
         }
+    }
+
+    // MARK: Quick Look panel control (the panel asks the responder chain, which ends at the app delegate)
+
+    override func acceptsPreviewPanelControl(_ panel: QLPreviewPanel!) -> Bool { true }
+
+    override func beginPreviewPanelControl(_ panel: QLPreviewPanel!) {
+        QuickLook.shared.attach(to: panel)
+    }
+
+    override func endPreviewPanelControl(_ panel: QLPreviewPanel!) {
+        panel.dataSource = nil
+        panel.delegate = nil
     }
 }

@@ -1,5 +1,25 @@
 import AppKit
 
+enum ClickAction: String, CaseIterable, Identifiable {
+    case open, quickLook
+
+    var id: String { rawValue }
+
+    var title: String {
+        switch self {
+        case .open: "File"
+        case .quickLook: "Quick Look"
+        }
+    }
+
+    var subtitle: String {
+        switch self {
+        case .open: "Opens the file in its app. ⌘-click to preview it with Quick Look instead."
+        case .quickLook: "Previews the file without leaving your notes. ⌘-click to open it instead."
+        }
+    }
+}
+
 enum LinkFormat: String, CaseIterable, Identifiable {
     case rich, markdown, url
 

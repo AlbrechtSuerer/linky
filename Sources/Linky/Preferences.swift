@@ -28,6 +28,10 @@ final class Preferences {
         didSet { defaults.set(format.rawValue, forKey: "format") }
     }
 
+    var clickAction: ClickAction {
+        didSet { defaults.set(clickAction.rawValue, forKey: "clickAction") }
+    }
+
     var launchAtLogin: Bool {
         didSet {
             guard launchAtLogin != oldValue else { return }
@@ -48,6 +52,7 @@ final class Preferences {
             shortcut = defaults.bool(forKey: "shortcutCleared") ? nil : .default
         }
         format = LinkFormat(rawValue: defaults.string(forKey: "format") ?? "") ?? .rich
+        clickAction = ClickAction(rawValue: defaults.string(forKey: "clickAction") ?? "") ?? .open
         launchAtLogin = SMAppService.mainApp.status == .enabled
     }
 

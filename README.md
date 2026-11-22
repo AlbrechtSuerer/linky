@@ -29,7 +29,7 @@ Use it for the contract next to your meeting notes, the design file in a task, t
 1. Select a file or folder in Finder.
 2. Press **⌃⌥⌘L** – or right-click › Services › **Copy Linky Link**.
 3. Paste it wherever links are clickable – Craft, Apple Notes, Obsidian, Bear, Things, Mail … You get the file name as a link.
-4. Click it to open the file. **⌥-click** shows it in Finder.
+4. Click it to open the file, or **⌘-click** to preview it with **Quick Look** without leaving your notes. In the preview, **⌘R** shows the file in Finder.
 
 <p align="center">
   <img src="docs/finder-link-copied.png" width="720" alt="A file selected in Finder, with Linky's 'Link copied' confirmation">
@@ -60,6 +60,9 @@ Linky lives in the menu bar: your recent links are one click away, ready to copy
 ## Good to know
 
 - **Three formats:** a linked file name (rich text), Markdown for Markdown editors, or the plain URL – pick one in Settings.
+- **Quick Look as default:** set *Click opens* to *Quick Look* in Settings, and a plain click previews the file. ⌘-click then opens it.
+- **In the Quick Look preview,** ⌘R shows the file in Finder and ⌘O opens it in its app.
+- **For apps that pass all clicks on** (like Apple Notes): ⌥-click jumps straight to Finder and ⇧-click works like ⌘-click. Craft only passes ⌘-click on.
 - **Links point to files on *your* Mac.** A link looks like `linky://open?id=…&p=~/Documents/…`. It contains no user name. Someone you share a note with can't open it, unless they have Linky and the same file in the same place.
 - **Everything stays local.** Links are stored in `~/Library/Application Support/Linky/links.json`. No account, no tracking, no background network. Linky only goes online when you click **Check for Updates** (it asks GitHub for the latest version).
 - The shortcut can be changed in Settings (menu bar › Settings…). New versions: menu bar › **Check for Updates…**

@@ -38,10 +38,22 @@ struct SettingsView: View {
                     }
 
                     SettingsSection("Link",
-                                    footer: "Tip: Hold ⌥ while clicking a link to show the file in Finder instead of opening it.") {
+                                    footer: "Tip: In the Quick Look preview, ⌘R shows the file in Finder and ⌘O opens it.") {
                         SettingsRow(title: "Format", subtitle: prefs.format.subtitle) {
                             Picker("", selection: $prefs.format) {
                                 ForEach(LinkFormat.allCases) { Text($0.title).tag($0) }
+                            }
+                            .labelsHidden()
+                            .pickerStyle(.menu)
+                            .fixedSize()
+                        }
+                        Rectangle()
+                            .fill(Color.primary.opacity(0.07))
+                            .frame(height: 1)
+                            .padding(.horizontal, 16)
+                        SettingsRow(title: "Click opens", subtitle: prefs.clickAction.subtitle) {
+                            Picker("", selection: $prefs.clickAction) {
+                                ForEach(ClickAction.allCases) { Text($0.title).tag($0) }
                             }
                             .labelsHidden()
                             .pickerStyle(.menu)
